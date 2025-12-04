@@ -1,6 +1,5 @@
 Projet : Rod-Balik
 
-Auteur : Amine
 
 Description : Projet d’intégration Rod-Balik comprenant les parties suivantes :
 - Frontend Angular : dossier "angular_front"
