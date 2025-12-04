@@ -1,0 +1,114 @@
+<div class="content">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <i-bs name="gear-fill"></i-bs>
+      </div>
+      <div class="header-text">
+        <h1 class="page-title">Paramètres Administrateur</h1>
+        <p class="page-subtitle">Gestion des informations de votre compte administrateur</p>
+      </div>
+    </div>
+    <div class="header-decoration">
+      <div class="decoration-line"></div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 60px;">
+    <p style="color: var(--color-text-secondary);">Chargement du profil...</p>
+  </div>
+
+  <div *ngIf="!isLoading && currentUser" class="settings-container">
+    <!-- Profil Card -->
+    <div class="profile-card">
+      <div class="card-header">
+        <div class="header-content">
+          <div class="card-icon">
+            <i-bs name="person-fill"></i-bs>
+          </div>
+          <div>
+            <h2 class="card-title">Informations du profil</h2>
+            <p class="card-description">Vos informations personnelles et professionnelles</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-summary">
+        <div class="avatar-section">
+          <div class="user-avatar">
+            {{ getInitials() }}
+          </div>
+        </div>
+        <div class="user-info">
+          <h3 class="user-name">
+            {{ currentUser.first_name }} {{ currentUser.last_name }}
+          </h3>
+          <p class="user-email">
+            <i-bs name="envelope-fill"></i-bs>
+            {{ currentUser.email }}
+          </p>
+          <div class="user-role">
+            <i-bs name="shield-fill"></i-bs>
+            <span class="badge badge-admin">
+              {{ getRoleLabel(currentUser.role) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="person-fill"></i-bs>
+            Nom d'utilisateur
+          </div>
+          <span class="info-value">{{ currentUser.username }}</span>
+        </div>
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="person-lines-fill"></i-bs>
+            Prénom
+          </div>
+          <span class="info-value">{{ currentUser.first_name }}</span>
+        </div>
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="person-lines-fill"></i-bs>
+            Nom
+          </div>
+          <span class="info-value">{{ currentUser.last_name }}</span>
+        </div>
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="envelope-fill"></i-bs>
+            Email
+          </div>
+          <span class="info-value">{{ currentUser.email }}</span>
+        </div>
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="telephone-fill"></i-bs>
+            Téléphone
+          </div>
+          <span class="info-value">{{ currentUser.phone || 'Non renseigné' }}</span>
+        </div>
+        <div class="info-row">
+          <div class="info-label">
+            <i-bs name="shield-fill"></i-bs>
+            Rôle
+          </div>
+          <span class="info-value">{{ getRoleLabel(currentUser.role) }}</span>
+        </div>
+        <div class="info-row" *ngIf="currentUser.created_at">
+          <div class="info-label">
+            <i-bs name="calendar-event-fill"></i-bs>
+            Date de création
+          </div>
+          <span class="info-value">{{ currentUser.created_at | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="content">
+  <div style="margin-bottom: 32px;">
+    <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;">
+      <i-bs name="speedometer"></i-bs>
+      Tableau de bord
+    </h1>
+    <p style="color: var(--color-text-secondary);">
+      Bienvenue {{ currentUser?.first_name }} {{ currentUser?.last_name }} - Administrateur - {{ currentUser?.username }} - {{ currentUser?.email }}
+      <span *ngIf="currentUser?.phone"> - {{ currentUser?.phone }}</span>
+      <br>
+      <small style="color: var(--color-text-muted);">Professionnel - Design - Autre</small>
+    </p>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 60px;">
+    <p style="color: var(--color-text-secondary);">Chargement des statistiques...</p>
+  </div>
+
+  <div *ngIf="!isLoading && statistiques">
+    <!-- Removed hardcoded percentage changes, now showing only real data from backend -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <i-bs name="speedometer" class="stat-icon"></i-bs>
+          <div class="stat-label">Total Signalements</div>
+        </div>
+        <div class="stat-value">{{ statistiques.global?.total || 0 }}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <i-bs name="exclamation-triangle" class="stat-icon" style="color: var(--color-warning);"></i-bs>
+          <div class="stat-label">En cours</div>
+        </div>
+        <div class="stat-value" style="color: var(--color-warning);">
+          {{ statistiques.global?.en_cours || 0 }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <i-bs name="check-circle" class="stat-icon" style="color: var(--color-success);"></i-bs>
+          <div class="stat-label">Validés</div>
+        </div>
+        <div class="stat-value" style="color: var(--color-success);">
+          {{ statistiques.global?.valides || 0 }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <i-bs name="x-circle" class="stat-icon" style="color: var(--color-danger);"></i-bs>
+          <div class="stat-label">Refusés</div>
+        </div>
+        <div class="stat-value" style="color: var(--color-danger);">
+          {{ statistiques.global?.refuses || 0 }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Signalements par catégorie section removed -->
+
+    <!-- Display recent signalements from backend if available -->
+    <div class="card" *ngIf="statistiques.recents && statistiques.recents.length > 0">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Signalements récents</h2>
+          <p class="card-description">Derniers signalements soumis</p>
+        </div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titre</th>
+              <th>Statut</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sig of statistiques.recents">
+              <td>#{{ sig.id }}</td>
+              <td>{{ sig.titre }}</td>
+              <td>
+                <span class="badge" [ngClass]="getStatutBadgeClass(sig.statut)">
+                  {{ getStatutLabel(sig.statut) }}
+                </span>
+              </td>
+              <td>{{ sig.date_creation | date:'dd/MM/yyyy HH:mm' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !statistiques" style="text-align: center; padding: 60px;">
+    <p style="color: var(--color-text-secondary);">Aucune donnée disponible</p>
+</div>

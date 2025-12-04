@@ -1,0 +1,199 @@
+<div class="content">
+  <div style="margin-bottom: 32px;">
+    <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">Signalements</h1>
+    <p style="color: var(--color-text-secondary);">Gérer tous les signalements des citoyens</p>
+  </div>
+
+  <!-- Filtres -->
+  <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+    <div class="card-header" style="background: rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.2);">
+      <h2 class="card-title" style="color: white; margin: 0;">Filtres</h2>
+    </div>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; padding: 24px;">
+      <div class="form-group" style="flex:1; min-width:250px; margin-bottom:0;">
+        <label class="form-label" style="color: white; font-weight: 500;">Statut</label>
+        <select class="form-input" style="background: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.3); color: #333;" [(ngModel)]="filtreStatut" (change)="onFilterChange()">
+          <option value="">Tous</option>
+          <option *ngFor="let statut of availableStatuses" [value]="statut">{{ getStatutLabel(statut) }}</option>
+        </select>
+      </div>
+      <div class="view-toggle" style="margin-left: auto;">
+        <button class="btn-view-toggle" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);" [class.active]="viewMode === 'table'" (click)="viewMode = 'table'">
+          📊 Tableau
+        </button>
+        <button class="btn-view-toggle" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);" [class.active]="viewMode === 'map'" (click)="viewMode = 'map'">
+          🗺️ Carte
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map View -->
+  <div *ngIf="viewMode === 'map'" class="card">
+    <div class="card-header">
+      <h2 class="card-title">Carte des signalements</h2>
+      <p class="card-description">{{ totalCount }} signalement(s)</p>
+    </div>
+    <div style="padding: 0 24px 24px;">
+      <app-signalements-map [signalements]="signalements" height="600px"></app-signalements-map>
+    </div>
+  </div>
+
+  <!-- Liste des signalements -->
+  <div *ngIf="viewMode === 'table'" class="card">
+    <div class="card-header">
+      <h2 class="card-title">Liste des signalements</h2>
+      <p class="card-description">{{ totalCount }} signalement(s)</p>
+    </div>
+
+    <div *ngIf="isLoading" style="text-align:center; padding:40px;">
+      <p style="color: var(--color-text-secondary);">Chargement...</p>
+    </div>
+
+    <div *ngIf="!isLoading && signalements.length === 0 && !errorMessage" style="text-align:center; padding:40px;">
+      <p style="color: var(--color-text-secondary);">Aucun signalement trouvé</p>
+    </div>
+
+    <div *ngIf="!isLoading && errorMessage" style="text-align:center; padding:40px;">
+      <p style="color: red;">{{ errorMessage }}</p>
+    </div>
+
+    <div *ngIf="!isLoading && signalements.length > 0" class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Catégorie</th>
+            <th>Statut</th>
+            <th>Utilisateur</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let signalement of signalements">
+            <td>#{{ signalement.id }}</td>
+            <td>{{ signalement.description }}</td>
+            <td><span [style.color]="signalement.category_color">{{ signalement.category_name }}</span></td>
+            <td>
+              <span class="badge" [ngClass]="getStatutBadgeClass(signalement.statut)">
+                {{ getStatutLabel(signalement.statut) }}
+              </span>
+            </td>
+            <td>{{ signalement.author_name }}</td>
+            <td>{{ signalement.date | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-info btn-sm" (click)="openDetailsModal(signalement.id)">Détails</button>
+                <button *ngIf="signalement.statut === 'EN_COURS'" class="btn btn-primary btn-sm" (click)="openValidationModal(signalement,'valider')">Valider</button>
+                <button *ngIf="signalement.statut === 'EN_COURS'" class="btn btn-secondary btn-sm" (click)="openValidationModal(signalement,'rejeter')">Rejeter</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteSignalement(signalement.id)">Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal détails du signalement -->
+<div *ngIf="showDetailsModal" class="modal-overlay" (click)="closeDetailsModal()">
+  <div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Détails du signalement</h2>
+      <button class="modal-close" (click)="closeDetailsModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="isLoadingDetails" style="text-align:center; padding:20px;">
+        <p>Chargement des détails...</p>
+      </div>
+      <div *ngIf="!isLoadingDetails && selectedSignalementDetails">
+        <div style="margin-bottom: 20px;">
+          <img *ngIf="getPhotoUrl(selectedSignalementDetails.photo)" [src]="getPhotoUrl(selectedSignalementDetails.photo)" alt="Photo du signalement" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px;" (error)="onImageError($event)">
+          <p *ngIf="!getPhotoUrl(selectedSignalementDetails.photo)" style="color: var(--color-text-secondary); text-align: center; padding: 40px 0;">Aucune photo disponible</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>ID:</strong>
+          <p>#{{ selectedSignalementDetails.id }}</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Description:</strong>
+          <p>{{ selectedSignalementDetails.description }}</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Catégorie:</strong>
+          <p><span [style.color]="selectedSignalementDetails.category.color">{{ selectedSignalementDetails.category.name }}</span></p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Statut:</strong>
+          <p>
+            <span class="badge" [ngClass]="getStatutBadgeClass(selectedSignalementDetails.statut)">
+              {{ getStatutLabel(selectedSignalementDetails.statut) }}
+            </span>
+          </p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Auteur:</strong>
+          <p *ngIf="selectedSignalementDetails.author">{{ selectedSignalementDetails.author.username }}</p>
+          <p *ngIf="!selectedSignalementDetails.author" style="color: var(--color-text-secondary);">Auteur inconnu</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Email:</strong>
+          <p *ngIf="selectedSignalementDetails.author">{{ selectedSignalementDetails.author.email }}</p>
+          <p *ngIf="!selectedSignalementDetails.author" style="color: var(--color-text-secondary);">Email inconnu</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Localisation:</strong>
+          <p *ngIf="selectedSignalementDetails.latitude && selectedSignalementDetails.longitude">
+            Latitude: {{ selectedSignalementDetails.latitude }}<br>
+            Longitude: {{ selectedSignalementDetails.longitude }}
+          </p>
+          <p *ngIf="!selectedSignalementDetails.latitude || !selectedSignalementDetails.longitude" style="color: var(--color-text-secondary);">
+            Aucune localisation disponible
+          </p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <strong>Date:</strong>
+          <p>{{ selectedSignalementDetails.date | date:'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeDetailsModal()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal validation/rejet -->
+<div *ngIf="showValidationModal" class="modal-overlay" (click)="closeValidationModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ validationAction === 'valider' ? 'Valider' : 'Rejeter' }} le signalement</h2>
+      <button class="modal-close" (click)="closeValidationModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p>Êtes-vous sûr de vouloir {{ validationAction === 'valider' ? 'valider' : 'rejeter' }} ce signalement ?</p>
+      <p><strong>{{ selectedSignalement?.description }}</strong></p>
+      <div *ngIf="validationAction === 'rejeter'" class="form-group">
+        <label class="form-label">Commentaire de modération *</label>
+        <textarea class="form-input" [(ngModel)]="moderation_comment" rows="4" placeholder="Expliquez pourquoi ce signalement est rejeté..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeValidationModal()">Annuler</button>
+      <button class="btn" [ngClass]="validationAction === 'valider' ? 'btn-primary' : 'btn-danger'" (click)="confirmValidation()">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+

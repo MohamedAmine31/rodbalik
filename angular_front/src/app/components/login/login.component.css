@@ -1,0 +1,115 @@
+/* Login component with professional styling */
+:host {
+  --color-text-secondary: #94a3b8;
+  --color-primary: #3b82f6;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--color-primary);
+  z-index: 1;
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.show-password-icon {
+  right: 16px;
+  left: auto;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  z-index: 2;
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+.form-input {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-logo img {
+  max-width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-logo img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(59, 130, 246, 0.3);
+}
+
+.login-form-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #f8fafc;
+  text-align: center;
+}
+
+.login-form-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #2563eb 100%);
+  color: white;
+  box-shadow: 0 4px 12px 0 rgba(59, 130, 246, 0.3);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px 0 rgba(59, 130, 246, 0.4);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.login-footer {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-footer a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
