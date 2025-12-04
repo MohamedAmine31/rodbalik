@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background_light"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="logo"
+                android:scaleType="centerCrop"
+                android:paddingRight="90dp"
+                android:src="@drawable/logo_login" />
+
+            <ImageView
+                android:id="@+id/g"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="globe"
+                app:srcCompat="@drawable/global"
+                android:layout_gravity="top"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Créer un compte"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/content_light"/>
+
+        <!-- New Inputs -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/nomInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Nom"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:background="@drawable/input_bg"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/prenomInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Prénom"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:background="@drawable/input_bg"
+                />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="E-mail"
+            android:padding="12dp"
+            android:background="@drawable/input_bg"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/content_light"
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Téléphone"
+            android:padding="12dp"
+            android:background="@drawable/input_bg"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/content_light"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="USER_NAME"
+            android:padding="12dp"
+            android:background="@drawable/input_bg"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/content_light"
+            android:inputType="text"/>
+
+        <!-- Password field with eye button -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/togglePassword"
+                android:hint="Mot de passe"
+                android:paddingStart="12dp"
+                android:paddingEnd="48dp"
+                android:inputType="textPassword"
+                android:gravity="center_vertical"
+                android:textColor="@color/content_light"/>
+
+            <ImageButton
+                android:id="@+id/togglePassword"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Afficher/Masquer mot de passe"
+                android:src="@drawable/blind"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:enabled="false"/>
+
+        </RelativeLayout>
+
+        <!-- Confirm password field with eye button -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/toggleConfirmPassword"
+                android:hint="Confirmer le mot de passe"
+                android:paddingStart="12dp"
+                android:paddingEnd="48dp"
+                android:inputType="textPassword"
+                android:gravity="center_vertical"
+                android:textColor="@color/content_light"/>
+
+            <ImageButton
+                android:id="@+id/toggleConfirmPassword"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Afficher/Masquer confirmation"
+                android:src="@drawable/blind"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:enabled="false"/>
+
+        </RelativeLayout>
+
+
+        <!-- Button -->
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/primary"
+            android:enabled="true"
+            android:text="Créer un compte"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/goToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Déjà un compte ? Se connecter"
+            android:textColor="@color/dark_blue"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+    </LinearLayout>
+</ScrollView>

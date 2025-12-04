@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="50dp">
+
+        <!-- Titre -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:contentDescription="logo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_login" />
+    </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Signalez, sensibilisez, améliorez !"
+            android:textColor="#666666" />
+
+        <!-- Champ email / téléphone -->
+        <EditText
+            android:id="@+id/email_phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/input_bg"
+            android:hint="Email ou username"
+            android:inputType="textEmailAddress"
+            android:padding="12dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/togglePassword"
+                android:hint="Mot de passe"
+                android:paddingStart="12dp"
+                android:paddingEnd="48dp"
+                android:inputType="textPassword"
+                android:gravity="center_vertical"
+                android:textColor="@color/content_light"/>
+
+            <ImageButton
+                android:id="@+id/togglePassword"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Afficher/Masquer mot de passe"
+                android:src="@drawable/blind"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:enabled="false"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="Mot de passe oublié ?"
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold"
+            />
+
+        <!-- Bouton connexion -->
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/bottun_color"
+            android:enabled="false"
+            android:text="Se connecter"
+            android:textColor="#FFFFFF" />
+
+        <!-- Lien créer un compte -->
+        <TextView
+            android:id="@+id/link_signup"            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Vous n'avez pas de compte ? Créer un compte"
+            android:textColor="@color/dark_blue" />
+
+<!--        &lt;!&ndash; Séparateur &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Ou continuer avec"-->
+<!--            android:textColor="#999999" />-->
+
+<!--        &lt;!&ndash; Boutons réseaux sociaux &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:weightSum="2">-->
+
+            <!-- Facebook -->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/login_facebook"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@color/white"-->
+<!--                android:padding="8dp"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:contentDescription="Facebook logo"-->
+<!--                    android:src="@drawable/_021_facebook_icon_svg" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Facebook"-->
+<!--                    android:textColor="#4267B2"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginStart="8dp"/>-->
+<!--            </LinearLayout>-->
+
+<!--            <View-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="match_parent" />-->
+
+<!--            &lt;!&ndash; Google &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/login_google"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@color/white"-->
+<!--                android:padding="8dp"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:contentDescription="Google logo"-->
+<!--                    android:src="@drawable/free_google_icon_svg_download_png_189824" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Google"-->
+<!--                    android:textColor="#DB4437"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginStart="8dp"/>-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_accueil">
+
+    <fragment
+        android:id="@+id/nav_accueil"
+        android:name="com.example.rodbalek_frontend.ui.Accueil.AccueilFragment"
+        android:label="Accueil"
+        tools:layout="@layout/fragment_accueil" >
+        <action
+            android:id="@+id/action_accueilFragment_to_ajoutSignalementFragment"
+            app:destination="@id/ajoutSignalementFragment" />
+        <action
+            android:id="@+id/action_accueilFragment_to_nav_aide"
+            app:destination="@id/nav_aide" />
+    </fragment>
+    <fragment
+        android:id="@+id/ajoutSignalementFragment"
+        android:name="com.example.rodbalek_frontend.ui.AjoutSignalement.AjoutSignalementFragment"
+        android:label="Ajouter un signalement"
+        tools:layout="@layout/fragment_ajout_signalement"  />
+    <fragment
+        android:id="@+id/nav_signalement"
+        android:name="com.example.rodbalek_frontend.ui.Signalemnt.SignalemntFragment"
+        android:label="Signalement"
+        tools:layout="@layout/fragment_signalemnt" />
+
+    <fragment
+        android:id="@+id/nav_aide"
+        android:name="com.example.rodbalek_frontend.ui.Aide.AideFragment"
+        android:label="Aide"
+        tools:layout="@layout/fragment_aide" />
+    <fragment
+        android:id="@+id/nav_profil"
+        android:name="com.example.rodbalek_frontend.ui.Profile.ProfilFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profil" />
+</navigation>

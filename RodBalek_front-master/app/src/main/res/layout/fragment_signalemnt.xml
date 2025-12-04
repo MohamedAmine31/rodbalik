@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FAFAFA"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 🔹 Barre de filtres -->
+    <LinearLayout
+        android:id="@+id/filterBar"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/filterAll"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tous"
+            android:textStyle="bold"
+            android:textColor="#2196F3"
+            android:background="@drawable/filter_unselected"
+            android:layout_margin="4dp" />
+
+        <TextView
+            android:id="@+id/filterEnCours"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="En cours"
+            android:textStyle="bold"
+            android:textColor="#FFC107"
+            android:background="@drawable/filter_unselected"
+            android:layout_margin="4dp" />
+
+        <TextView
+            android:id="@+id/filterApprouve"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Approuvé"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:background="@drawable/filter_unselected"
+            android:layout_margin="4dp" />
+
+        <TextView
+            android:id="@+id/filterRejete"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Rejeté"
+            android:textStyle="bold"
+            android:textColor="#F44336"
+            android:background="@drawable/filter_unselected"
+            android:layout_margin="4dp" />
+    </LinearLayout>
+
+    <!-- 🔹 Liste des signalements -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSignalements"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>
